@@ -1,0 +1,21 @@
+diff '--color=auto' -Naur a/setup.py b/setup.py
+--- a/setup.py	2024-11-06 17:00:14.000000000 +0100
++++ b/setup.py	2024-11-23 12:06:20.749411090 +0100
+@@ -97,9 +97,6 @@
+     if 'PYFFTW_INCLUDE' in os.environ:
+         include_dirs.append(os.environ['PYFFTW_INCLUDE'])
+ 
+-    if get_platform().startswith("linux"):
+-        include_dirs.append('/usr/include')
+-
+     if get_platform() in ('win32', 'win-amd64'):
+         include_dirs.append(os.path.join(os.getcwd(), 'include', 'win'))
+ 
+@@ -138,7 +135,6 @@
+     if 'PYFFTW_LIB_DIR' in os.environ:
+         library_dirs.append(os.environ['PYFFTW_LIB_DIR'])
+ 
+-    library_dirs.append(os.path.join(sys.prefix, 'lib'))
+     if get_platform().startswith('freebsd'):
+         library_dirs.append('/usr/local/lib')
+ 

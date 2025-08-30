@@ -1,0 +1,21 @@
+diff '--color=auto' -Naur a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml	2024-11-06 17:00:14.000000000 +0100
++++ b/pyproject.toml	2024-11-23 12:05:02.380275466 +0100
+@@ -2,15 +2,8 @@
+ requires = [
+     "wheel",
+     "setuptools",
+-    "Cython>=3",
+-    # taken from scipy (2024/06/28)
+-    # numpy requirement for wheel builds for distribution on PyPI - building
+-    # against 2.x yields wheels that are also compatible with numpy 1.x at
+-    # runtime.
+-    # Note that building against numpy 1.x works fine too - users and
+-    # redistributors can do this by installing the numpy version they like and
+-    # disabling build isolation.
+-    "numpy>=2.0.0",
++    "Cython>=0.29.37",
++    "numpy>=1.20",
+ ]
+ build-backend = "setuptools.build_meta"
+ 

@@ -1,0 +1,23 @@
+diff '--color=auto' -Naur a/pyfftw/__init__.pxd b/pyfftw/__init__.pxd
+--- a/pyfftw/__init__.pxd	2024-11-06 17:00:14.000000000 +0100
++++ b/pyfftw/__init__.pxd	2024-11-23 12:08:05.626697579 +0100
+@@ -1,4 +1,4 @@
+ # The pyfftw namespace
+-from .pyfftw cimport FFTW
+-from .pyfftw cimport fftw_exe
+-from .pyfftw cimport execute_in_nogil
++from pyfftw.pyfftw cimport FFTW
++from pyfftw.pyfftw cimport fftw_exe
++from pyfftw.pyfftw cimport execute_in_nogil
+diff '--color=auto' -Naur a/setup.py b/setup.py
+--- a/setup.py	2024-11-23 12:07:10.922030442 +0100
++++ b/setup.py	2024-11-23 12:07:25.774210216 +0100
+@@ -642,7 +642,6 @@
+             (f"PYFFTW_{k}", int(v)) for k, v in sniffer.compile_time_env.items()
+         ]
+         # to avoid a meaningless warning
+-        self._pyfftw_define_macros.append(("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"))
+         self._pyfftw_define_macros.append(("FFTW_NO_Complex", 1))
+ 
+         # call `extend()` to keep argument set neither by sniffer nor by
+

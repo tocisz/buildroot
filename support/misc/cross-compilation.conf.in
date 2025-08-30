@@ -32,6 +32,7 @@ pkg_config_static = '@STATIC@'
 # enable meson build to pass a toolchain file to cmake
 cmake_toolchain_file = '@HOST_DIR@/share/buildroot/toolchainfile.cmake'
 cmake_defaults = false
+longdouble_format = 'IEEE_DOUBLE_LE'
 
 [host_machine]
 system = 'linux'

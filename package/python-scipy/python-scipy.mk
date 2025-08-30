@@ -44,4 +44,10 @@ PYTHON_SCIPY_CONF_OPTS = -Dblas=openblas -Dlapack=lapack
 PYTHON_SCIPY_MESON_EXTRA_PROPERTIES = \
 	numpy-include-dir='$(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR)/site-packages/numpy/core/include'
 
+PYTHON_SCIPY_CFLAGS = $(TARGET_CFLAGS)
+PYTHON_SCIPY_CXXFLAGS = $(TARGET_CXXFLAGS)
+
+PYTHON_SCIPY_CFLAGS += -O3 -ftree-vectorize -funsafe-math-optimizations -Wno-error=incompatible-pointer-types
+PYTHON_SCIPY_CXXFLAGS += -O3 -ftree-vectorize -funsafe-math-optimizations -Wno-error=incompatible-pointer-types
+
 $(eval $(meson-package))

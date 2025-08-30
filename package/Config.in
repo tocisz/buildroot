@@ -1518,6 +1518,10 @@ menu "External python modules"
 	source "package/python-zlmdb/Config.in"
 	source "package/python-zope-interface/Config.in"
 	source "package/python-zopfli/Config.in"
+	source "package/python-zopfli/Config.in"
+	source "package/python-pyadi-iio/Config.in"
+	source "package/python-pyfftw/Config.in"
+	source "package/python-fast-histogram/Config.in"
 endmenu
 endif
 	source "package/quickjs/Config.in"

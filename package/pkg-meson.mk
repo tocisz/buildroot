@@ -142,6 +142,7 @@ ifeq ($(4),target)
 $(2)_CFLAGS ?= $$(TARGET_CFLAGS)
 $(2)_LDFLAGS ?= $$(TARGET_LDFLAGS)
 $(2)_CXXFLAGS ?= $$(TARGET_CXXFLAGS)
+$(2)_MESON ?= $$(MESON)
 
 # Configure package for target
 #
@@ -157,7 +158,7 @@ define $(2)_CONFIGURE_CMDS
 	CC_FOR_BUILD="$$(HOSTCC)" \
 	CXX_FOR_BUILD="$$(HOSTCXX)" \
 	$$($$(PKG)_CONF_ENV) \
-	$$(MESON) setup \
+	$$($(2)_MESON) setup \
 		--prefix=/usr \
 		--libdir=lib \
 		--default-library=$(PKG_MESON_DEFAULT_LIBRARY) \
@@ -178,7 +179,8 @@ define $(2)_CONFIGURE_CMDS
 	rm -rf $$($$(PKG)_SRCDIR)/buildroot-build
 	mkdir -p $$($$(PKG)_SRCDIR)/buildroot-build
 	$$(HOST_CONFIGURE_OPTS) \
-	$$($$(PKG)_CONF_ENV) $$(MESON) setup \
+	$$($$(PKG)_CONF_ENV) \
+	$$($(2)_MESON) setup \
 		--prefix=$$(HOST_DIR) \
 		--libdir=lib \
 		--sysconfdir=$$(HOST_DIR)/etc \

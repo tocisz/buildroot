@@ -1,0 +1,12 @@
+--- a/scipy/interpolate/src/_fitpackmodule.c	2025-08-29 01:24:53.682907294 +0200
++++ b/scipy/interpolate/src/_fitpackmodule.c	2025-08-29 01:25:32.979609376 +0200
+@@ -252,7 +252,7 @@
+         goto fail;
+     }
+     wrk = wa;
+-    iwrk = (int *)(wrk + lwrk);
++    iwrk = (F_INT *)(wrk + lwrk);
+     if (nux || nuy) {
+         PARDER(tx, &nx, ty, &ny, c, &kx, &ky, &nux, &nuy, x, &mx, y, &my, z,
+                 wrk, &lwrk, iwrk, &kwrk, &ier);
+

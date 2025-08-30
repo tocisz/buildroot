@@ -1,0 +1,5 @@
+# md5, sha256 from https://pypi.org/pypi/pyadi-iio/json
+md5  0d94d6d5b3d19c2139f9b00056f54310  pyadi_iio-0.0.19.tar.gz
+sha256  9f21ace5fbdac67f6146ec151838c8b714f6b3a12244c003a6625805c6d10fb5  pyadi_iio-0.0.19.tar.gz
+# Locally computed sha256 checksums
+sha256  74824bd9a543f017c57aba4eeec9e7095f2de70b3879a5e8ee5efd9986ca32b3  LICENSE

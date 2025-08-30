@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PYTHON_NUMPY_VERSION = 1.25.0
+PYTHON_NUMPY_VERSION = 1.26.4
 PYTHON_NUMPY_SOURCE = numpy-$(PYTHON_NUMPY_VERSION).tar.gz
 PYTHON_NUMPY_SITE = https://github.com/numpy/numpy/releases/download/v$(PYTHON_NUMPY_VERSION)
 PYTHON_NUMPY_LICENSE = BSD-3-Clause, MIT, Zlib
@@ -23,6 +23,14 @@ HOST_PYTHON_NUMPY_DEPENDENCIES = host-python-cython
 PYTHON_NUMPY_CONF_ENV += \
 	_PYTHON_SYSCONFIGDATA_NAME=$(PKG_PYTHON_SYSCONFIGDATA_NAME) \
 	PYTHONPATH=$(PYTHON3_PATH)
+
+PYTHON_NUMPY_CONF_OPTS += -Dcpu-baseline="neon" -Dcpu-dispatch="neon_fp16"
+
+PYTHON_NUMPY_CFLAGS = $(TARGET_CFLAGS)
+PYTHON_NUMPY_CXXFLAGS = $(TARGET_CXXFLAGS)
+
+PYTHON_NUMPY_CFLAGS += -O3 -ftree-vectorize -funsafe-math-optimizations
+PYTHON_NUMPY_CXXFLAGS += -O3 -ftree-vectorize -funsafe-math-optimizations
 
 ifeq ($(BR2_PACKAGE_LAPACK),y)
 PYTHON_NUMPY_DEPENDENCIES += lapack
@@ -57,6 +65,10 @@ PYTHON_NUMPY_POST_INSTALL_STAGING_HOOKS += PYTHON_NUMPY_FIXUP_NPY_PKG_CONFIG_FIL
 # Some package may include few headers from NumPy, so let's install it
 # in the staging area.
 PYTHON_NUMPY_INSTALL_STAGING = YES
+
+# Use vendored meson for NumPy build
+PYTHON_NUMPY_MESON = PYTHONNOUSERSITE=y $(HOST_DIR)/bin/python3 $($(PKG)_SRCDIR)/vendored-meson/meson/meson.py
+HOST_PYTHON_NUMPY_MESON = PYTHONNOUSERSITE=y $(HOST_DIR)/bin/python3 $($(PKG)_SRCDIR)/vendored-meson/meson/meson.py
 
 $(eval $(meson-package))
 $(eval $(host-meson-package))
