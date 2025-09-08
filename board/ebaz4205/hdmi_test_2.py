@@ -23,9 +23,13 @@ chan.enabled = True
 buf = iio.Buffer(dev, BUFFER_SIZE, cyclic=False)
 num = 0
 
-while True:
-    frame_bytes = bytearray(num.to_bytes(1, byteorder="big") * BUFFER_SIZE)
-    buf.write(frame_bytes)
-    buf.push()
+try:
+    while True:
+        frame_bytes = bytearray(num.to_bytes(1, byteorder="big") * BUFFER_SIZE)
+        buf.write(frame_bytes)
+        buf.push()
 
-    num = (num + 1) % 256
+        num = (num + 1) % 256
+finally:
+    buf.cancel()
+    del buf

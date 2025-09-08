@@ -47,6 +47,6 @@ buf.push()
 
 try:
     time.sleep(10)
-except:
+finally:
     buf.cancel()
     del buf
