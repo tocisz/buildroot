@@ -16,7 +16,10 @@ ${INSTALL} -D -m 0755 ${BOARD_DIR}/S15watchdog ${TARGET_DIR}/etc/init.d/
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/S21misc ${TARGET_DIR}/etc/init.d/
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/S99iiod ${TARGET_DIR}/etc/init.d/
 
+${INSTALL} -D -m 0644 ${BOARD_DIR}/cute-cat-spending-time-indoors.jpg ${TARGET_DIR}/root
+
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/hdmi_test.py ${TARGET_DIR}/root
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/hdmi_test_2.py ${TARGET_DIR}/root
+${INSTALL} -D -m 0755 ${BOARD_DIR}/hdmi_test_3.py ${TARGET_DIR}/root
 
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/fb_test.py ${TARGET_DIR}/root

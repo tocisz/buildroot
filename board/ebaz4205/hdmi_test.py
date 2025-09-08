@@ -41,4 +41,8 @@ buf = iio.Buffer(dev, len(frame_bytes), cyclic=True)
 buf.write(frame_bytes)
 buf.push()
 
-time.sleep(10)
+try:
+    time.sleep(10)
+except:
+    buf.cancel()
+    del buf
