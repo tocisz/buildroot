@@ -46,12 +46,12 @@ ifeq ($(BR2_PACKAGE_MTD_UBIFS_UTILS),y)
 MTD_DEPENDENCIES += util-linux host-pkgconf
 MTD_CONF_OPTS += --with-ubifs
 # crypto needs linux/hash_info.h
-ifeq ($(BR2_TOOLCHAIN_HEADERS_AT_LEAST_4_12)$(BR2_PACKAGE_OPENSSL),yy)
-MTD_DEPENDENCIES += openssl
-MTD_CONF_OPTS += --with-crypto
-else
+#ifeq ($(BR2_TOOLCHAIN_HEADERS_AT_LEAST_4_12)$(BR2_PACKAGE_OPENSSL),yy)
+#MTD_DEPENDENCIES += openssl
+#MTD_CONF_OPTS += --with-crypto
+#else
 MTD_CONF_OPTS += --without-crypto
-endif
+#endif
 ifeq ($(BR2_PACKAGE_ZSTD),y)
 MTD_DEPENDENCIES += zstd
 MTD_CONF_OPTS += --with-zstd
