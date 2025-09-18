@@ -1,0 +1,60 @@
+#!/bin/sh
+
+source /etc/device_config
+
+create_iiod_context_attributes() {
+    model=$1
+    serial=$2
+    model_variant=$3
+
+    for dev in /sys/bus/iio/devices/*; do
+        [ `cat ${dev}/name` == "ad9361-phy" ] && DEV_NAME=`basename ${dev}`
+    done
+
+    AD936X_TYPE=$(cat /sys/bus/iio/devices/${DEV_NAME}/of_node/compatible | sed 's/adi,//g')
+    AD936X_TYPE_CAP=$(echo $AD936X_TYPE | tr a-z A-Z)
+    MODEL=$(echo $model | sed "s/AD936[34]/$AD936X_TYPE_CAP/")
+
+    echo "[Context Attributes]" > /etc/libiio.ini
+    echo "hw_model=$MODEL" >> /etc/libiio.ini
+
+    if [ "$model_variant" == "n25q256a" ]
+    then
+        echo "hw_model_variant=0" >> /etc/libiio.ini
+    else
+        echo "hw_model_variant=1" >> /etc/libiio.ini
+    fi
+
+    echo -e "hw_serial=$serial\n" >> /etc/libiio.ini
+    echo "fw_version=`grep device-fw /opt/VERSIONS | cut -d ' ' -f 2`" >> /etc/libiio.ini
+    echo ad9361-phy,xo_correction=`cat /sys/bus/iio/devices/${DEV_NAME}/xo_correction` >> /etc/libiio.ini
+    echo ad9361-phy,model=$AD936X_TYPE >> /etc/libiio.ini
+}
+
+case "$1" in
+  start)
+    echo -n "Starting board config: "
+    model=`cat /sys/firmware/devicetree/base/model | tr / -`
+    model_variant=`dmesg | grep m25p80 | grep Kbytes | cut -d ' ' -f 3`
+
+    serial=`dmesg | grep SPI-NOR-UniqueID`
+    serial=${serial#*SPI-NOR-UniqueID }
+    echo $serial > /etc/serial
+
+    create_iiod_context_attributes "$model" "$serial" "$model_variant"
+
+    echo "OK"
+    ;;
+  stop)
+
+    ;;
+  restart|reload)
+    "$0" stop
+    "$0" start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+
+exit $?

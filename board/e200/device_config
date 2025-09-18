@@ -1,0 +1,12 @@
+#S23udc
+PRODUCT="ANTSDR E200"
+
+#S40network / S41network
+UDHCPD_CONF=/etc/udhcpd.conf
+CONF=/opt/config.txt
+IFAC=/etc/network/interfaces
+
+#update.sh
+TARGET=e200
+FRM_MAGIC="ITB ANTSDR E200"
+
