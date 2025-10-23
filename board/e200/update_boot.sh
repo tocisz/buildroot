@@ -1,19 +1,17 @@
 #!/bin/sh
 
-#set -x
-
 source /etc/device_config
 
 FRM_FILE="$1"
 
 flash_indication_on() {
-    echo timer > /sys/class/leds/led0:green/trigger
-    echo 40 > /sys/class/leds/led0:green/delay_off
-    echo 40 > /sys/class/leds/led0:green/delay_on
+    echo timer > /sys/class/leds/led0:red/trigger
+    echo 40 > /sys/class/leds/led0:red/delay_off
+    echo 40 > /sys/class/leds/led0:red/delay_on
 }
 
 flash_indication_off() {
-    echo heartbeat > /sys/class/leds/led0:green/trigger
+    echo heartbeat > /sys/class/leds/led0:red/trigger
 }
 
 handle_boot_frm () {
@@ -31,15 +29,16 @@ handle_boot_frm () {
 		exit 0
 	else
 		rm -f /opt/boot.frm
-        echo Failed Checksum error: $frm $md5
-        exit 1
-    fi
+                echo Failed Checksum error: $frm $md5
+                exit 1
+        fi
 }
 
-if [[ -f ${FRM_FILE} ]] && [[ ${FRM_FILE: -4} == ".frm" ]] && [[ -s ${FRM_FILE} ]]
+if [ -f ${FRM_FILE} ] && [ ${FRM_FILE: -4} == ".frm" ] && [ -s ${FRM_FILE} ]
 then
     handle_boot_frm "${FRM_FILE}" "${FRM_MAGIC}"
-else
-    echo "Failed"
-    exit 1
+    exit 0
 fi
+
+echo "Failed"
+exit 1
