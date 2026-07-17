@@ -15,6 +15,7 @@ ${INSTALL} -D -m 0644 ${BOARD_DIR}/libiio.ini ${TARGET_DIR}/etc/
 echo 'configfs	/sys/kernel/config	configfs	defaults	0	0' >> ${TARGET_DIR}/etc/fstab
 
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/S15watchdog ${TARGET_DIR}/etc/init.d/
+${INSTALL} -D -m 0755 ${BOARD_DIR}/S20fpgaregion ${TARGET_DIR}/etc/init.d/
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/S21misc ${TARGET_DIR}/etc/init.d/
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/S99iiod ${TARGET_DIR}/etc/init.d/
 
