@@ -26,3 +26,14 @@ ${INSTALL} -D -m 0755 ${BOARD_DIR}/hdmi_test_2.py ${TARGET_DIR}/root
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/hdmi_test_3.py ${TARGET_DIR}/root
 
 ${INSTALL} -D -m 0755 ${BOARD_DIR}/fb_test.py ${TARGET_DIR}/root
+
+# Install the prebuilt kernel loadable modules (axis_fifo, ipip, 8021q) into
+# the rootfs so modprobe works on the board. The kernel itself is built by the
+# top-level Makefile (linux/), NOT by buildroot -- the .ko files must already
+# exist, which the top-level `make` guarantees via the linux-modules target.
+REPO_ROOT="$(cd "$(dirname $0)/../../.." && pwd)"
+HOST_BIN="$(cd "${REPO_ROOT}/buildroot/output/host/bin" 2>/dev/null && pwd)"
+export PATH="${HOST_BIN:+${HOST_BIN}:}/usr/sbin:/sbin:${PATH}"
+
+make -C "${REPO_ROOT}/linux" ARCH=arm CROSS_COMPILE=${TARGET}- \
+	INSTALL_MOD_PATH="${TARGET_DIR}" INSTALL_MOD_STRIP=1 modules_install
